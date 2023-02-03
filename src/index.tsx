@@ -1,14 +1,14 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import App from "App";
+// React
+import React from "react";
+import * as ReactDOM from "react-dom/client";
 
-import App from "./App";
+// Pages
 
-const rootElement = document.getElementById("root");
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const root = createRoot(rootElement!);
+const container = document.getElementById("root")!;
 
-root.render(
-	<StrictMode>
-		<App />
-	</StrictMode>
-);
+// Create a root.
+const root = ReactDOM.createRoot(container);
+
+root.render(<App />);
