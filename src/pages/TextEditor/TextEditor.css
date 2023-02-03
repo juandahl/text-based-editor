@@ -1,0 +1,7 @@
+.TextEditor {
+  width: 100%; }
+  .TextEditor .input {
+    width: 100%;
+    border: 0px;
+    min-height: 40px;
+    font-size: large; }

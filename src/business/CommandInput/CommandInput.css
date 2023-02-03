@@ -1,0 +1,35 @@
+.CommandInput {
+  width: 100%; }
+  .CommandInput .input {
+    border: 0px;
+    min-height: 40px;
+    font-size: large;
+    position: relative; }
+    .CommandInput .input:focus, .CommandInput .input:active {
+      border: 0px;
+      outline: none; }
+  .CommandInput .box {
+    position: absolute;
+    top: 60px;
+    border-radius: 12px;
+    border: 1px solid grey;
+    box-shadow: 1px 1px 5px 0px rgba(94, 86, 86, 0.2);
+    min-width: 200px; }
+    .CommandInput .box .title {
+      padding: 0px 20px;
+      color: #cccccc;
+      text-align: left; }
+    .CommandInput .box .buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%; }
+      .CommandInput .box .buttons-container > button {
+        width: 100%;
+        min-height: 40px;
+        background-color: transparent;
+        border: 0px;
+        text-align: left;
+        padding: 20px; }
+        .CommandInput .box .buttons-container > button:hover {
+          background-color: #cccccc; }
