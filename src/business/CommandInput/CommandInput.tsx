@@ -34,7 +34,7 @@ const CommandInput: React.FC<CommandInputProps> = ({ commandsRepository, onComma
 				// eslint-disable-next-line @typescript-eslint/no-misused-promises
 				onChange={handleChangeValue}
 				autoFocus
-				name="command-input"
+				data-testid="command-input"
 				placeholder="Type '/' for commands..."
 			/>
 

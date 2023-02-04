@@ -1,4 +1,4 @@
 interface Command {
-	type: string;
+	type: "HEADLINE" | "TEXT_INPUT" | "OPTION";
 	label: string;
 }
