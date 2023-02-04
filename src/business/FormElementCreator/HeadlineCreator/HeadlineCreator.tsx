@@ -1,30 +1,55 @@
+// Components
 import CustomInput from "components/CustomInput";
+import { EventCustomInput } from "components/CustomInput/CustomInput";
+// Enums
+import { CommandTypes } from "enum/CommandTypes";
 import React from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface HeadlineCreatorProps {}
+interface HeadlineCreatorProps {
+	id: string;
+	defaultValue?: string;
+	onCompleted: (formElement: FormElement) => void;
+	onRemove?: (formElement: FormElement) => void;
+}
 
-const HeadlineCreator: React.FC<HeadlineCreatorProps> = () => {
-	// States
-	const [headingText, setHeadingText] = React.useState<string>("");
+const HeadlineCreator: React.FC<HeadlineCreatorProps> = ({
+	id,
+	defaultValue = "",
+	onCompleted,
+	onRemove,
+}) => {
+	const handlePressEnter = (event: EventCustomInput) => {
+		const newValue = event.target.value;
+		onCompleted({
+			id,
+			type: CommandTypes.HEADLINE,
+			value: newValue,
+		});
+	};
+
+	const handlePressBackSpace = (event: EventCustomInput) => {
+		const newValue = event.target.value;
+		if (newValue === "") {
+			onRemove?.({
+				id,
+				type: CommandTypes.HEADLINE,
+				value: newValue,
+			});
+		}
+	};
 
 	return (
-		<>
-			{headingText ? (
-				<h1 data-testid="heading-created">{headingText}</h1>
-			) : (
-				<CustomInput
-					className="heading1"
-					placeholder="Heading 1"
-					name="Heading1"
-					data-testid="heading-input"
-					// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-					onPressEnter={(event) =>
-						setHeadingText((event.target as unknown as { value: string }).value)
-					}
-				/>
-			)}
-		</>
+		<CustomInput
+			autoFocus
+			className="heading1"
+			placeholder="Heading 1"
+			name="Heading1"
+			data-testid="heading-input"
+			defaultValue={defaultValue}
+			onPressEnter={handlePressEnter}
+			onPressBackSpace={handlePressBackSpace}
+		/>
 	);
 };
 

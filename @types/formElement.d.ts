@@ -1,3 +1,5 @@
 interface FormElement {
-	type: string;
+	id: string;
+	type: "HEADLINE" | "OPTION" | "TEXT_INPUT";
+	value: string;
 }
