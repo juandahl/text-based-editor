@@ -20,10 +20,10 @@ describe("CommandInput component", () => {
 
 		render(<CommandInput commandsRepository={commandsRepo} />);
 
-		const input = await screen.findByRole("textbox");
+		const input = await screen.findByTestId("command-input");
 		await act(() => fireEvent.change(input, { target: { value: "/" } }));
 
-		const headlineButton = screen.getByRole("button", { name: /headline/i });
+		const headlineButton = await screen.getByRole("button", { name: /headline/i });
 		expect(headlineButton).toBeInTheDocument();
 
 		commandsRepo.searchAll.mockReset();
@@ -36,10 +36,10 @@ describe("CommandInput component", () => {
 
 		render(<CommandInput commandsRepository={commandsRepo} />);
 
-		const input = await screen.findByRole("textbox");
+		const input = await screen.findByTestId("command-input");
 		await act(() => fireEvent.change(input, { target: { value: "/headd" } }));
 
-		expect(() => screen.getByTestId(/headline/i)).toThrow();
+		expect(screen.queryByTestId(/heading/i)).not.toBeInTheDocument();
 
 		commandsRepo.searchAll.mockReset();
 	});
