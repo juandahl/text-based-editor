@@ -1,0 +1,14 @@
+
+$min-height: 40px;
+
+.CustomInput {
+  width: 100%;
+  border: 0px;
+  min-height: $min-height;
+  font-size: large;
+
+  &:focus, &:active {
+    border: 0px;
+    outline: none;
+  }
+}

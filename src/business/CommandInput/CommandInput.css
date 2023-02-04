@@ -1,16 +1,6 @@
 .CommandInput {
   width: 100%; }
-  .CommandInput .input {
-    border: 0px;
-    min-height: 40px;
-    font-size: large;
-    position: relative; }
-    .CommandInput .input:focus, .CommandInput .input:active {
-      border: 0px;
-      outline: none; }
   .CommandInput .box {
-    position: absolute;
-    top: 60px;
     border-radius: 12px;
     border: 1px solid grey;
     box-shadow: 1px 1px 5px 0px rgba(94, 86, 86, 0.2);

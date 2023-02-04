@@ -1,13 +1,18 @@
 import "./CommandInput.css";
 
+// Components
+import CustomInput from "components/CustomInput";
+// React
 import React from "react";
+// Services
 import CommandsRepository from "services/CommandsRepository";
 
 interface CommandInputProps {
 	commandsRepository: CommandsRepository;
+	onCommandSelected: (command: Command) => void;
 }
 
-const CommandInput: React.FC<CommandInputProps> = ({ commandsRepository }) => {
+const CommandInput: React.FC<CommandInputProps> = ({ commandsRepository, onCommandSelected }) => {
 	// States
 	const [value, setValue] = React.useState<string>("");
 	const [options, setOptions] = React.useState<Command[]>([]);
@@ -23,19 +28,18 @@ const CommandInput: React.FC<CommandInputProps> = ({ commandsRepository }) => {
 
 	return (
 		<div className="CommandInput">
-			<input
-				className="input"
+			<CustomInput
+				list="command"
 				value={value}
 				// eslint-disable-next-line @typescript-eslint/no-misused-promises
 				onChange={handleChangeValue}
 				autoFocus
 				name="command-input"
-				type="text"
 				placeholder="Type '/' for commands..."
 			/>
 
 			{value.startsWith("/") && (
-				<div className="box">
+				<div id="command" className="box">
 					<h6 className="title">Commands</h6>
 
 					<div className="buttons-container">
@@ -44,6 +48,7 @@ const CommandInput: React.FC<CommandInputProps> = ({ commandsRepository }) => {
 								key={`option-${option.type}`}
 								data-testid={`button-${option.type}`}
 								name={option.label}
+								onClick={() => onCommandSelected(option)}
 							>
 								{option.label}
 							</button>
