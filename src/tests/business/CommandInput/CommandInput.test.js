@@ -3,9 +3,9 @@ import "@testing-library/jest-dom";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import CommandInput from "business/CommandInput/CommandInput";
 
-import CommandsRepository from "../services/CommandsRepository";
+import CommandsRepository from "../../../services/CommandsRepository";
 
-jest.mock("../services/CommandsRepository");
+jest.mock("../../../services/CommandsRepository");
 
 const command = {
 	type: "HEADLINE",
