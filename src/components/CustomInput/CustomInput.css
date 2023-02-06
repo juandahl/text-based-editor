@@ -6,3 +6,5 @@
   .CustomInput:focus, .CustomInput:active {
     border: 0px;
     outline: none; }
+  .CustomInput::placeholder {
+    color: #bbbab8; }

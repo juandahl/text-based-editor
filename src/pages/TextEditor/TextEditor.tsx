@@ -20,21 +20,33 @@ const TextEditor: React.FC<TextEditorProps> = () => {
 	const commandInputRef = React.useRef<HTMLInputElement | null>(null);
 
 	// States
-	const [id, setId] = React.useState<string>(generateKey());
-	const [commandSelected, setCommandSelected] = React.useState<Command | undefined>();
 	const [formElements, setFormElements] = React.useState<FormElement[]>([]);
-
-	// Effects
-	React.useEffect(() => {
-		if (!commandSelected && commandInputRef.current) {
-			commandInputRef.current.focus();
-		}
-	}, [commandSelected]);
 
 	// Handlers
 	const handleAddElementToForm = (formElement: FormElement) => {
-		setFormElements((prev) => [...prev, formElement]);
-		setCommandSelected(undefined);
+		const elementIndex = formElements.findIndex((item: FormElement) => item.id === formElement.id);
+		if (elementIndex === -1) {
+			setFormElements((prev) => [...prev, formElement]);
+		}
+	};
+
+	const handleUpdateElementToForm = (formElement: FormElement) => {
+		const elementIndex = formElements.findIndex((item: FormElement) => item.id === formElement.id);
+		if (elementIndex !== -1) {
+			setFormElements((prev) =>
+				prev.map((item) => {
+					if (item.id === formElement.id) {
+						return formElement;
+					}
+
+					return item;
+				})
+			);
+		}
+
+		if (commandInputRef.current) {
+			commandInputRef.current.focus();
+		}
 	};
 
 	const handleRemoveElementFromForm = (formElement: FormElement) => {
@@ -43,7 +55,16 @@ const TextEditor: React.FC<TextEditorProps> = () => {
 
 			return [...result];
 		});
-		setCommandSelected(undefined);
+	};
+
+	const handleCompleted = (formElement: FormElement) => {
+		const elementIndex = formElements.findIndex((item: FormElement) => item.id === formElement.id);
+		const alreadyExists = elementIndex !== -1;
+		if (alreadyExists) {
+			handleUpdateElementToForm(formElement);
+		} else {
+			handleAddElementToForm(formElement);
+		}
 	};
 
 	return (
@@ -53,25 +74,22 @@ const TextEditor: React.FC<TextEditorProps> = () => {
 					{...element}
 					key={element.value}
 					defaultValue={element.value}
-					onCompleted={handleAddElementToForm}
+					onCompleted={handleCompleted}
 					onRemove={handleRemoveElementFromForm}
 				/>
 			))}
-
-			{commandSelected && (
-				<FormElementCreator
-					id={id}
-					type={commandSelected.type}
-					onCompleted={handleAddElementToForm}
-				/>
-			)}
 
 			<CommandInput
 				ref={commandInputRef}
 				commandsRepository={commandsRepository}
 				onCommandSelected={(command: Command) => {
-					setCommandSelected(command);
-					setId(() => generateKey());
+					const newFormElement: FormElement = {
+						id: generateKey(),
+						type: command.type,
+						value: "",
+					};
+
+					handleCompleted(newFormElement);
 				}}
 			/>
 		</div>

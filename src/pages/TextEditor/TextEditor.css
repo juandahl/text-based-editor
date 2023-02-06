@@ -1,5 +1,7 @@
 .TextEditor {
-  width: 100%; }
+  gap: 4px;
+  display: flex;
+  flex-direction: column; }
   .TextEditor .input {
     width: 100%;
     border: 0px;

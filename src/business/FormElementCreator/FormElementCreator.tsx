@@ -4,6 +4,7 @@ import { CommandTypes } from "enum/CommandTypes";
 import React from "react";
 
 import HeadlineCreator from "./HeadlineCreator";
+import TextInputCreator from "./TextInputCreator";
 
 export type CommandTypesValues = keyof typeof CommandTypes;
 
@@ -34,9 +35,22 @@ const FormElementCreator: React.FC<FormElementCreatorProps> = ({
 					/>
 				);
 			case "OPTION":
-				return <h1>TODO: implement it</h1>;
+				return (
+					<>
+						<option value="option">TODO: implement it</option>
+						<option value="option">TODO: implement it</option>
+						<option value="option">TODO: implement it</option>
+					</>
+				);
 			case "TEXT_INPUT":
-				return <h1>TODO: implement it</h1>;
+				return (
+					<TextInputCreator
+						id={id}
+						onCompleted={onCompleted}
+						onRemove={onRemove}
+						defaultValue={defaultValue}
+					/>
+				);
 			default:
 				// eslint-disable-next-line no-case-declarations
 				const exhaustiveCheck: never = type;
