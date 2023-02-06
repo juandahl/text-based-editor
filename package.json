@@ -30,7 +30,7 @@
     "start-js": "react-scripts start",
     "start": "concurrently --kill-others-on-fail 'npm run watch-css' 'npm run start-js'",
     "build": "npm run build-css; react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --verbose",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
     "lint:fix": "yarn lint -- --fix"
