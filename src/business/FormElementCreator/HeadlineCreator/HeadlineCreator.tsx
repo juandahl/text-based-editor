@@ -13,43 +13,42 @@ interface HeadlineCreatorProps {
 	onRemove?: (formElement: FormElement) => void;
 }
 
-const HeadlineCreator: React.FC<HeadlineCreatorProps> = ({
-	id,
-	defaultValue = "",
-	onCompleted,
-	onRemove,
-}) => {
-	const handlePressEnter = (event: EventCustomInput) => {
-		const newValue = event.target.value;
-		onCompleted({
-			id,
-			type: CommandTypes.HEADLINE,
-			values: [newValue],
-		});
-	};
-
-	const handlePressBackSpace = (event: EventCustomInput) => {
-		const newValue = event.target.value;
-		if (newValue === "") {
-			onRemove?.({
+const HeadlineCreator = React.forwardRef<HTMLInputElement, HeadlineCreatorProps>(
+	({ id, defaultValue = "", onCompleted, onRemove }, ref) => {
+		const handlePressEnter = (event: EventCustomInput) => {
+			const newValue = event.target.value;
+			onCompleted({
 				id,
 				type: CommandTypes.HEADLINE,
 				values: [newValue],
 			});
-		}
-	};
+		};
 
-	return (
-		<CustomInput
-			className="heading1"
-			placeholder="Heading 1"
-			name="Heading1"
-			data-testid="heading-input"
-			defaultValue={defaultValue}
-			onPressEnter={handlePressEnter}
-			onPressBackSpace={handlePressBackSpace}
-		/>
-	);
-};
+		const handlePressBackSpace = (event: EventCustomInput) => {
+			const newValue = event.target.value;
+			if (newValue === "") {
+				onRemove?.({
+					id,
+					type: CommandTypes.HEADLINE,
+					values: [newValue],
+				});
+			}
+		};
+
+		return (
+			<CustomInput
+				ref={ref}
+				className="heading1"
+				placeholder="Heading 1"
+				name="Heading1"
+				data-testid="heading-input"
+				aria-label="Heading"
+				defaultValue={defaultValue}
+				onPressEnter={handlePressEnter}
+				onPressBackSpace={handlePressBackSpace}
+			/>
+		);
+	}
+);
 
 export default HeadlineCreator;

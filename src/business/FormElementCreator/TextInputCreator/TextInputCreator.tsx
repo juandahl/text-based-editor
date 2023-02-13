@@ -14,44 +14,42 @@ interface TextInputCreatorProps {
 	onRemove?: (formElement: FormElement) => void;
 }
 
-const TextInputCreator: React.FC<TextInputCreatorProps> = ({
-	id,
-	defaultValue = "",
-	onCompleted,
-	onRemove,
-}) => {
-	const handlePressEnter = (event: EventCustomInput) => {
-		const newValue = event.target.value;
-		onCompleted({
-			id,
-			type: CommandTypes.TEXT_INPUT,
-			values: [newValue],
-		});
-	};
-
-	const handlePressBackSpace = (event: EventCustomInput) => {
-		const newValue = event.target.value;
-		if (newValue === "") {
-			onRemove?.({
+const TextInputCreator = React.forwardRef<HTMLInputElement, TextInputCreatorProps>(
+	({ id, defaultValue = "", onCompleted, onRemove }, ref) => {
+		const handlePressEnter = (event: EventCustomInput) => {
+			const newValue = event.target.value;
+			onCompleted({
 				id,
 				type: CommandTypes.TEXT_INPUT,
 				values: [newValue],
 			});
-		}
-	};
+		};
 
-	return (
-		<CustomInput
-			className="TextInputCreator"
-			placeholder="Type placeholder text"
-			aria-labelledby="text-input-creator"
-			name="text-input-creator"
-			data-testid="text-input-creator"
-			defaultValue={defaultValue}
-			onPressEnter={handlePressEnter}
-			onPressBackSpace={handlePressBackSpace}
-		/>
-	);
-};
+		const handlePressBackSpace = (event: EventCustomInput) => {
+			const newValue = event.target.value;
+			if (newValue === "") {
+				onRemove?.({
+					id,
+					type: CommandTypes.TEXT_INPUT,
+					values: [newValue],
+				});
+			}
+		};
+
+		return (
+			<CustomInput
+				ref={ref}
+				className="TextInputCreator"
+				placeholder="Type placeholder text"
+				aria-label="text-input-creator"
+				name="text-input-creator"
+				data-testid="text-input-creator"
+				defaultValue={defaultValue}
+				onPressEnter={handlePressEnter}
+				onPressBackSpace={handlePressBackSpace}
+			/>
+		);
+	}
+);
 
 export default TextInputCreator;

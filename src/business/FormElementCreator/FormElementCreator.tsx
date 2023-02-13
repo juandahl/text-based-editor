@@ -26,12 +26,20 @@ const FormElementCreator: React.FC<FormElementCreatorProps> = ({
 	onRemove,
 	defaultValues,
 }) => {
+	// States
+	const ref = React.useRef<HTMLInputElement | null>(null);
+
+	React.useEffect(() => {
+		ref.current?.focus();
+	}, []);
+
 	const renderFormElementCreator = () => {
 		switch (type) {
 			case "HEADLINE":
 				return (
 					<HeadlineCreator
 						id={id}
+						ref={ref}
 						onCompleted={onCompleted}
 						onRemove={onRemove}
 						defaultValue={defaultValues?.[0] ?? ""}
@@ -41,6 +49,7 @@ const FormElementCreator: React.FC<FormElementCreatorProps> = ({
 				return (
 					<OptionCreator
 						id={id}
+						ref={ref}
 						onCompleted={onCompleted}
 						onRemove={onRemove}
 						count={OPTION_LENGHT}
@@ -51,6 +60,7 @@ const FormElementCreator: React.FC<FormElementCreatorProps> = ({
 				return (
 					<TextInputCreator
 						id={id}
+						ref={ref}
 						onCompleted={onCompleted}
 						onRemove={onRemove}
 						defaultValue={defaultValues?.[0] ?? ""}

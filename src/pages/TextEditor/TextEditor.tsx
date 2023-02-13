@@ -50,6 +50,8 @@ const TextEditor: React.FC<TextEditorProps> = () => {
 	};
 
 	const handleRemoveElementFromForm = (formElement: FormElement) => {
+		commandInputRef.current?.focus();
+
 		setFormElements((prev) => {
 			const result = prev.filter((item) => item.id !== formElement.id);
 
@@ -68,8 +70,6 @@ const TextEditor: React.FC<TextEditorProps> = () => {
 	};
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		// eslint-disable-next-line no-console
-		console.log("submit");
 		event.preventDefault();
 	};
 
