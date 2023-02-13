@@ -4,6 +4,7 @@ import { CommandTypes } from "enum/CommandTypes";
 import React from "react";
 
 import HeadlineCreator from "./HeadlineCreator";
+import OptionCreator from "./OptionCreator";
 import TextInputCreator from "./TextInputCreator";
 
 export type CommandTypesValues = keyof typeof CommandTypes;
@@ -13,15 +14,17 @@ interface FormElementCreatorProps {
 	type: CommandTypesValues;
 	onCompleted: (formElement: FormElement) => void;
 	onRemove?: (formElement: FormElement) => void;
-	defaultValue?: string;
+	defaultValues?: string[];
 }
+
+const OPTION_LENGHT = 3;
 
 const FormElementCreator: React.FC<FormElementCreatorProps> = ({
 	id,
 	type,
 	onCompleted,
 	onRemove,
-	defaultValue = "",
+	defaultValues,
 }) => {
 	const renderFormElementCreator = () => {
 		switch (type) {
@@ -31,16 +34,18 @@ const FormElementCreator: React.FC<FormElementCreatorProps> = ({
 						id={id}
 						onCompleted={onCompleted}
 						onRemove={onRemove}
-						defaultValue={defaultValue}
+						defaultValue={defaultValues?.[0] ?? ""}
 					/>
 				);
 			case "OPTION":
 				return (
-					<>
-						<option value="option">TODO: implement it</option>
-						<option value="option">TODO: implement it</option>
-						<option value="option">TODO: implement it</option>
-					</>
+					<OptionCreator
+						id={id}
+						onCompleted={onCompleted}
+						onRemove={onRemove}
+						count={OPTION_LENGHT}
+						defaultValues={defaultValues}
+					/>
 				);
 			case "TEXT_INPUT":
 				return (
@@ -48,7 +53,7 @@ const FormElementCreator: React.FC<FormElementCreatorProps> = ({
 						id={id}
 						onCompleted={onCompleted}
 						onRemove={onRemove}
-						defaultValue={defaultValue}
+						defaultValue={defaultValues?.[0] ?? ""}
 					/>
 				);
 			default:

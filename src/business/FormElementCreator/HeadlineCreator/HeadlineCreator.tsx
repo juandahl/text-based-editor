@@ -24,7 +24,7 @@ const HeadlineCreator: React.FC<HeadlineCreatorProps> = ({
 		onCompleted({
 			id,
 			type: CommandTypes.HEADLINE,
-			value: newValue,
+			values: [newValue],
 		});
 	};
 
@@ -34,14 +34,13 @@ const HeadlineCreator: React.FC<HeadlineCreatorProps> = ({
 			onRemove?.({
 				id,
 				type: CommandTypes.HEADLINE,
-				value: newValue,
+				values: [newValue],
 			});
 		}
 	};
 
 	return (
 		<CustomInput
-			autoFocus
 			className="heading1"
 			placeholder="Heading 1"
 			name="Heading1"

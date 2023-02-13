@@ -67,31 +67,43 @@ const TextEditor: React.FC<TextEditorProps> = () => {
 		}
 	};
 
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		// eslint-disable-next-line no-console
+		console.log("submit");
+		event.preventDefault();
+	};
+
 	return (
 		<div className="TextEditor">
-			{formElements.map((element) => (
-				<FormElementCreator
-					{...element}
-					key={element.value}
-					defaultValue={element.value}
-					onCompleted={handleCompleted}
-					onRemove={handleRemoveElementFromForm}
+			<form className="form" onSubmit={handleSubmit}>
+				{formElements.map((element) => (
+					<FormElementCreator
+						{...element}
+						key={element.id}
+						defaultValues={element.values}
+						onCompleted={handleCompleted}
+						onRemove={handleRemoveElementFromForm}
+					/>
+				))}
+
+				<CommandInput
+					ref={commandInputRef}
+					commandsRepository={commandsRepository}
+					onCommandSelected={(command: Command) => {
+						const newFormElement: FormElement = {
+							id: generateKey(),
+							type: command.type,
+							values: [""],
+						};
+
+						handleCompleted(newFormElement);
+					}}
 				/>
-			))}
 
-			<CommandInput
-				ref={commandInputRef}
-				commandsRepository={commandsRepository}
-				onCommandSelected={(command: Command) => {
-					const newFormElement: FormElement = {
-						id: generateKey(),
-						type: command.type,
-						value: "",
-					};
-
-					handleCompleted(newFormElement);
-				}}
-			/>
+				<button className="submit" type="submit">
+					Submit
+				</button>
+			</form>
 		</div>
 	);
 };

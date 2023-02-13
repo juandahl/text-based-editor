@@ -25,7 +25,7 @@ const TextInputCreator: React.FC<TextInputCreatorProps> = ({
 		onCompleted({
 			id,
 			type: CommandTypes.TEXT_INPUT,
-			value: newValue,
+			values: [newValue],
 		});
 	};
 
@@ -35,14 +35,13 @@ const TextInputCreator: React.FC<TextInputCreatorProps> = ({
 			onRemove?.({
 				id,
 				type: CommandTypes.TEXT_INPUT,
-				value: newValue,
+				values: [newValue],
 			});
 		}
 	};
 
 	return (
 		<CustomInput
-			autoFocus
 			className="TextInputCreator"
 			placeholder="Type placeholder text"
 			aria-labelledby="text-input-creator"
