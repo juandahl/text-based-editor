@@ -1,0 +1,10 @@
+.CustomInput {
+  width: 100%;
+  border: 0px;
+  min-height: 40px;
+  font-size: large; }
+  .CustomInput:focus, .CustomInput:active {
+    border: 0px;
+    outline: none; }
+  .CustomInput::placeholder {
+    color: #bbbab8; }
