@@ -14,6 +14,7 @@
     "eslint-config-codely": "^2.1.3",
     "eslint-config-react": "^1.1.7",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "jest-axe": "^7.0.0",
     "node-sass-chokidar": "^2.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -21,7 +22,7 @@
     "react-router-dom": "^6.4.2",
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "5.0.0",
-    "typescript": "^4.8.4"
+    "typescript": "^4.9.5"
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src src/ -o src/",
@@ -29,7 +30,7 @@
     "start-js": "react-scripts start",
     "start": "concurrently --kill-others-on-fail 'npm run watch-css' 'npm run start-js'",
     "build": "npm run build-css; react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --verbose",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
     "lint:fix": "yarn lint -- --fix"
