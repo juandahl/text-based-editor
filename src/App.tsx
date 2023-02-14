@@ -1,7 +1,7 @@
 import "./styles.css";
 
 // Components
-import TopBar from "components/CustomInput/TopBar/TopBar";
+import TopBar from "components/TopBar";
 // Context
 import { FormProvider } from "contexts/formContext/formContext";
 // Pages

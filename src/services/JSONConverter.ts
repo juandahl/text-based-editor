@@ -1,19 +1,23 @@
-interface DownloadFileProps {
-	data: CommonJSON;
+interface DownloadFileProps<T> {
+	data: T;
 	filename?: string;
 }
-
-export interface JSONConverterInstance {
-	downloadFile: (props: DownloadFileProps) => void;
+interface UploadFileProps {
+	data: string;
 }
 
-export class JSONConverter {
+export interface JSONConverterInstance<T> {
+	downloadFile: (props: DownloadFileProps<T>) => void;
+	uploadJson: (props: UploadFileProps) => T;
+}
+
+export class JSONConverter<T = unknown> {
 	/**
 	 *
 	 * @param data object to be exported as json format
 	 * @param filename file name
 	 */
-	downloadFile({ data, filename = "form" }: DownloadFileProps): void {
+	downloadFile({ data, filename = "form" }: DownloadFileProps<T>): void {
 		// create file in browser
 		const json = JSON.stringify(data, null, 2);
 		const blob = new Blob([json], { type: "application/json" });
@@ -29,5 +33,9 @@ export class JSONConverter {
 		// clean up "a" element & remove ObjectURL
 		document.body.removeChild(link);
 		URL.revokeObjectURL(href);
+	}
+
+	uploadJson<T = unknown>({ data }: UploadFileProps): T {
+		return JSON.parse(data) as T;
 	}
 }

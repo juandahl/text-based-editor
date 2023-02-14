@@ -10,4 +10,5 @@ interface FormContext {
 	onRemove: (formElement: FormElement, onRemoveElement: () => void) => void;
 	onAdd: (formElement: FormElement, onAddElement: () => void) => void;
 	onUpdate: (formElement: FormElement, onUpdateElement: () => void) => void;
+	onAddInBulk: (formElements: FormElement[]) => void;
 }
