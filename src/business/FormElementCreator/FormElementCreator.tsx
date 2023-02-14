@@ -6,6 +6,7 @@ import React from "react";
 import HeadlineCreator from "./HeadlineCreator";
 import OptionCreator from "./OptionCreator";
 import TextInputCreator from "./TextInputCreator";
+import TitleCreator from "./TitleCreator";
 
 export type CommandTypesValues = keyof typeof CommandTypes;
 
@@ -35,6 +36,15 @@ const FormElementCreator: React.FC<FormElementCreatorProps> = ({
 
 	const renderFormElementCreator = () => {
 		switch (type) {
+			case "TITLE":
+				return (
+					<TitleCreator
+						id={id}
+						ref={ref}
+						onCompleted={onCompleted}
+						defaultValue={defaultValues?.[0] ?? ""}
+					/>
+				);
 			case "HEADLINE":
 				return (
 					<HeadlineCreator
