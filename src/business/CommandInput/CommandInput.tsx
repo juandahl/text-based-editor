@@ -7,6 +7,8 @@ import React from "react";
 // Services
 import CommandsRepository from "services/CommandsRepository";
 
+import Box from "./Box";
+
 interface CommandInputProps {
 	commandsRepository: CommandsRepository;
 	onCommandSelected: (command: Command) => void;
@@ -41,25 +43,13 @@ const CommandInput = React.forwardRef<HTMLInputElement, CommandInputProps>(
 				/>
 
 				{value.startsWith("/") && (
-					<div id="command" className="box">
-						<h6 className="title">Commands</h6>
-
-						<div className="buttons-container">
-							{options.map((option) => (
-								<button
-									key={`option-${option.type}`}
-									data-testid={`button-${option.type}`}
-									name={option.label}
-									onClick={() => {
-										onCommandSelected(option);
-										setValue("");
-									}}
-								>
-									{option.label}
-								</button>
-							))}
-						</div>
-					</div>
+					<Box
+						options={options}
+						onClick={(option) => {
+							onCommandSelected(option);
+							setValue("");
+						}}
+					/>
 				)}
 			</div>
 		);
