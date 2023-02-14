@@ -3,8 +3,8 @@ import "./TextEditor.css";
 // Business
 import CommandInput from "business/CommandInput";
 import FormElementCreator from "business/FormElementCreator";
-// Enums
-import { CommandTypes } from "enum/CommandTypes";
+// Contexts
+import { useFormContext } from "contexts/formContext";
 // React
 import React from "react";
 // Services
@@ -16,70 +16,23 @@ import { generateKey } from "utils/Uuid";
 interface TextEditorProps {}
 
 const commandsRepository = new CommandsRepository();
-const defaultFormElements: FormElement[] = [
-	{
-		id: generateKey(),
-		type: CommandTypes.TITLE,
-		values: [""],
-	},
-];
 
 const TextEditor: React.FC<TextEditorProps> = () => {
 	// Refs
 	const commandInputRef = React.useRef<HTMLInputElement | null>(null);
 
-	// States
-	const [formElements, setFormElements] = React.useState<FormElement[]>(defaultFormElements);
+	// Context
+	const { formElements, onCompleted, onRemove } = useFormContext();
 
 	// Handlers
-	const handleAddElementToForm = (formElement: FormElement) => {
-		const elementIndex = formElements.findIndex((item: FormElement) => item.id === formElement.id);
-		if (elementIndex === -1) {
-			setFormElements((prev) => [...prev, formElement]);
-		}
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
 	};
 
-	const handleUpdateElementToForm = (formElement: FormElement) => {
-		const elementIndex = formElements.findIndex((item: FormElement) => item.id === formElement.id);
-		if (elementIndex !== -1) {
-			setFormElements((prev) =>
-				prev.map((item) => {
-					if (item.id === formElement.id) {
-						return formElement;
-					}
-
-					return item;
-				})
-			);
-		}
-
+	const handleFocusElement = () => {
 		if (commandInputRef.current) {
 			commandInputRef.current.focus();
 		}
-	};
-
-	const handleRemoveElementFromForm = (formElement: FormElement) => {
-		commandInputRef.current?.focus();
-
-		setFormElements((prev) => {
-			const result = prev.filter((item) => item.id !== formElement.id);
-
-			return [...result];
-		});
-	};
-
-	const handleCompleted = (formElement: FormElement) => {
-		const elementIndex = formElements.findIndex((item: FormElement) => item.id === formElement.id);
-		const alreadyExists = elementIndex !== -1;
-		if (alreadyExists) {
-			handleUpdateElementToForm(formElement);
-		} else {
-			handleAddElementToForm(formElement);
-		}
-	};
-
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
 	};
 
 	return (
@@ -90,8 +43,8 @@ const TextEditor: React.FC<TextEditorProps> = () => {
 						{...element}
 						key={element.id}
 						defaultValues={element.values}
-						onCompleted={handleCompleted}
-						onRemove={handleRemoveElementFromForm}
+						onCompleted={(formElement: FormElement) => onCompleted(formElement, handleFocusElement)}
+						onRemove={(formElement: FormElement) => onRemove(formElement, handleFocusElement)}
 					/>
 				))}
 
@@ -105,7 +58,7 @@ const TextEditor: React.FC<TextEditorProps> = () => {
 							values: [""],
 						};
 
-						handleCompleted(newFormElement);
+						onCompleted(newFormElement, handleFocusElement);
 					}}
 				/>
 

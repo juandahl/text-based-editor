@@ -1,0 +1,14 @@
+.TopBar {
+  border-bottom: 1px solid #CCCCCC;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end; }
+  .TopBar > button {
+    min-height: 40px;
+    background-color: transparent;
+    border: 0px;
+    text-align: left;
+    padding: 20px;
+    color: #BBBAB8; }
+    .TopBar > button:hover {
+      background-color: #CCCCCC; }
