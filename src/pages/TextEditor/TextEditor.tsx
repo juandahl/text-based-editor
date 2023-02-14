@@ -3,6 +3,8 @@ import "./TextEditor.css";
 // Business
 import CommandInput from "business/CommandInput";
 import FormElementCreator from "business/FormElementCreator";
+// Enums
+import { CommandTypes } from "enum/CommandTypes";
 // React
 import React from "react";
 // Services
@@ -14,13 +16,20 @@ import { generateKey } from "utils/Uuid";
 interface TextEditorProps {}
 
 const commandsRepository = new CommandsRepository();
+const defaultFormElements: FormElement[] = [
+	{
+		id: generateKey(),
+		type: CommandTypes.TITLE,
+		values: [""],
+	},
+];
 
 const TextEditor: React.FC<TextEditorProps> = () => {
 	// Refs
 	const commandInputRef = React.useRef<HTMLInputElement | null>(null);
 
 	// States
-	const [formElements, setFormElements] = React.useState<FormElement[]>([]);
+	const [formElements, setFormElements] = React.useState<FormElement[]>(defaultFormElements);
 
 	// Handlers
 	const handleAddElementToForm = (formElement: FormElement) => {
