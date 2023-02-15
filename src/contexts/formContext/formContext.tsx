@@ -41,7 +41,7 @@ const useFormProvider = (): FormContext => {
 		}
 	};
 
-	const handleUpdateElementToForm = (formElement: FormElement, onUpdateElement: () => void) => {
+	const handleUpdateElementToForm = (formElement: FormElement, onUpdateElement?: () => void) => {
 		const elementIndex = formElements.findIndex((item: FormElement) => item.id === formElement.id);
 		if (elementIndex !== -1) {
 			setFormElements((prev) =>
@@ -55,7 +55,7 @@ const useFormProvider = (): FormContext => {
 			);
 		}
 
-		onUpdateElement();
+		onUpdateElement?.();
 	};
 
 	const handleRemoveElementFromForm = (formElement: FormElement, onRemoveElement: () => void) => {
@@ -69,7 +69,7 @@ const useFormProvider = (): FormContext => {
 		});
 	};
 
-	const handleCompleted = (formElement: FormElement, onUpdateElement: () => void) => {
+	const handleCompleted = (formElement: FormElement, onUpdateElement?: () => void) => {
 		const elementIndex = formElements.findIndex((item: FormElement) => item.id === formElement.id);
 		const alreadyExists = elementIndex !== -1;
 		if (alreadyExists) {
@@ -80,10 +80,10 @@ const useFormProvider = (): FormContext => {
 	};
 
 	const handleAddInbulk = (form: FormElement[]) => {
-		setFormElements(form);
+		setFormElements([...form]);
 	};
 
-	return {
+	const context: FormContext = {
 		formElements,
 		onAddInBulk: handleAddInbulk,
 		onCompleted: handleCompleted,
@@ -91,6 +91,8 @@ const useFormProvider = (): FormContext => {
 		onAdd: handleAddElementToForm,
 		onUpdate: handleUpdateElementToForm,
 	};
+
+	return context;
 };
 
 /**

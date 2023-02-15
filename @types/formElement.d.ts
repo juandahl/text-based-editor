@@ -6,9 +6,9 @@ interface FormElement {
 
 interface FormContext {
 	formElements: FormElement[];
-	onCompleted: (formElement: FormElement, onUpdateElement: () => void) => void;
+	onCompleted: (formElement: FormElement, onUpdateElement?: () => void) => void;
 	onRemove: (formElement: FormElement, onRemoveElement: () => void) => void;
 	onAdd: (formElement: FormElement, onAddElement: () => void) => void;
-	onUpdate: (formElement: FormElement, onUpdateElement: () => void) => void;
+	onUpdate: (formElement: FormElement, onUpdateElement?: () => void) => void;
 	onAddInBulk: (formElements: FormElement[]) => void;
 }

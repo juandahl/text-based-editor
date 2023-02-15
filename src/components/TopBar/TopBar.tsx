@@ -39,8 +39,19 @@ const TopBar: React.FC<TopBarProps> = ({ JSONConverter }) => {
 
 	return (
 		<div className="TopBar">
-			<input type="file" onChange={handleUpload} />
 			<button onClick={handleDownload}>DOWNLOAD</button>
+			<div className="container-input">
+				<input
+					type="file"
+					name="file"
+					onChange={handleUpload}
+					accept="application/JSON"
+					className="file-uploader"
+				/>
+				<label htmlFor="file">
+					<span className="iborrainputfile">UPLOAD JSON</span>
+				</label>
+			</div>
 		</div>
 	);
 };

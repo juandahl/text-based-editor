@@ -14,6 +14,7 @@ interface FormElementCreatorProps {
 	id: string;
 	type: CommandTypesValues;
 	onCompleted: (formElement: FormElement) => void;
+	onChange: (formElement: FormElement) => void;
 	onRemove?: (formElement: FormElement) => void;
 	defaultValues?: string[];
 }
@@ -61,9 +62,11 @@ const FormElementCreator: React.FC<FormElementCreatorProps> = ({
 						id={id}
 						ref={ref}
 						onCompleted={onCompleted}
+						onChange={onCompleted}
 						onRemove={onRemove}
-						count={OPTION_LENGHT}
-						defaultValues={defaultValues}
+						defaultValues={
+							(defaultValues ?? []).length < OPTION_LENGHT ? new Array(3).fill("") : defaultValues
+						}
 					/>
 				);
 			case "TEXT_INPUT":

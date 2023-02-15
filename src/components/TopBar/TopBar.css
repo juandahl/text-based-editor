@@ -2,7 +2,34 @@
   border-bottom: 1px solid #CCCCCC;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end; }
+  justify-content: flex-end;
+  /**********File Inputs**********/ }
+  .TopBar .container-input {
+    text-align: center;
+    padding: 20px; }
+    .TopBar .container-input:hover {
+      background-color: #CCCCCC; }
+    .TopBar .container-input .file-uploader {
+      z-index: 9;
+      width: 100%;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute; }
+    .TopBar .container-input .file-uploader + label {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+      display: inline-block;
+      overflow: hidden;
+      font-size: 0.875rem; }
+    .TopBar .container-input .iborrainputfile {
+      background-color: transparent;
+      border: 0px;
+      text-align: left;
+      color: #BBBAB8;
+      z-index: 99; }
+    .TopBar .container-input .file-uploader + label {
+      color: #CCCCCC; }
   .TopBar > button {
     min-height: 40px;
     background-color: transparent;

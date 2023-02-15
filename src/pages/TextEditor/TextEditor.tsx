@@ -44,6 +44,7 @@ const TextEditor: React.FC<TextEditorProps> = () => {
 						key={element.id}
 						defaultValues={element.values}
 						onCompleted={(formElement: FormElement) => onCompleted(formElement, handleFocusElement)}
+						onChange={(formElement: FormElement) => onCompleted(formElement)}
 						onRemove={(formElement: FormElement) => onRemove(formElement, handleFocusElement)}
 					/>
 				))}
