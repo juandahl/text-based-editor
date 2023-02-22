@@ -1,0 +1,19 @@
+name: Tests #Name of the Workflow
+
+on:  #Name of the GitHub event that triggers the workflow
+  push   #On Push Event We need to take action
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+    steps:
+    #Using versioned actions 
+      - uses: actions/checkout@v2  # --> Reference a specific version
+      - uses: actions/setup-node@v2 # --> To Setup the Server With Node Env
+        with:  
+          node-version: '16.17.1'
+      - name: npm run test
+        run: |
+          npm install
+          npm run test
+
