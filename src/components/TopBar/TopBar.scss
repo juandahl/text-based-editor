@@ -1,0 +1,62 @@
+@import 'src/styles/palette.scss';
+
+.TopBar {
+  border-bottom: 1px solid $grey-500;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  /**********File Inputs**********/
+  .container-input {
+    text-align: center;
+    padding: 20px;
+
+    &:hover {
+      background-color: $grey-500;
+    }
+
+    .file-uploader {
+      z-index: 9;
+      width: 100%;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+    }
+
+    .file-uploader + label {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+      display: inline-block;
+      overflow: hidden;
+      font-size: 0.875rem;
+    }
+
+    .iborrainputfile {
+      background-color: transparent;
+      border: 0px;
+      text-align: left;
+      color: $grey-700;
+      z-index: 99;
+  
+    }
+
+
+    .file-uploader + label {
+      color: $grey-500;
+    }
+  }
+
+  > button {
+    min-height: 40px;
+    background-color: transparent;
+    border: 0px;
+    text-align: left;
+    padding: 20px;
+    color: $grey-700;
+
+    &:hover {
+      background-color: $grey-500;
+    }
+  }
+}
