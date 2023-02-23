@@ -1,0 +1,17 @@
+.FormElementDraggable {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px;
+  width: 100%;
+
+  .image {
+    width: 24px;
+    height: 24px;
+    opacity: 1;
+
+    &.hidden {
+      opacity: 0;
+    }
+  }
+}

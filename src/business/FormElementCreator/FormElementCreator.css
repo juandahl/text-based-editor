@@ -1,3 +1,5 @@
-.FormElementCreator .heading1 {
-  font-size: 2rem;
-  font-weight: bold; }
+.FormElementCreator {
+  width: 100%; }
+  .FormElementCreator .heading1 {
+    font-size: 2rem;
+    font-weight: bold; }

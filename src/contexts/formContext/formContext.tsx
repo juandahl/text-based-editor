@@ -14,8 +14,8 @@ export const formContext = React.createContext<FormContext>({
 	onRemove: noop,
 	onAdd: noop,
 	onUpdate: noop,
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	onAddInBulk: () => {},
+	onAddInBulk: noop,
+	onChangeOrder: noop,
 });
 
 const defaultFormElements: FormElement[] = [
@@ -90,6 +90,7 @@ const useFormProvider = (): FormContext => {
 		onRemove: handleRemoveElementFromForm,
 		onAdd: handleAddElementToForm,
 		onUpdate: handleUpdateElementToForm,
+		onChangeOrder: (form: FormElement[]) => setFormElements(form),
 	};
 
 	return context;

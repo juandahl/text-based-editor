@@ -1,5 +1,6 @@
 import "./CommandInput.css";
 
+import classNames from "classnames";
 // Components
 import CustomInput from "components/CustomInput";
 // React
@@ -10,12 +11,13 @@ import CommandsRepository from "services/CommandsRepository";
 import Box from "./Box";
 
 interface CommandInputProps {
+	className?: string;
 	commandsRepository: CommandsRepository;
 	onCommandSelected: (command: Command) => void;
 }
 
 const CommandInput = React.forwardRef<HTMLInputElement, CommandInputProps>(
-	({ commandsRepository, onCommandSelected }, ref) => {
+	({ className, commandsRepository, onCommandSelected }, ref) => {
 		// States
 		const [value, setValue] = React.useState<string>("");
 		const [options, setOptions] = React.useState<Command[]>([]);
@@ -30,7 +32,7 @@ const CommandInput = React.forwardRef<HTMLInputElement, CommandInputProps>(
 		};
 
 		return (
-			<div className="CommandInput">
+			<div className={classNames("CommandInput", className)}>
 				<CustomInput
 					ref={ref}
 					list="command"
