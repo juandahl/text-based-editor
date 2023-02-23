@@ -2,7 +2,8 @@
   display: flex;
   align-items: baseline;
   gap: 8px;
-  padding: 8px; }
+  padding: 8px;
+  width: 100%; }
   .FormElementDraggable .image {
     width: 24px;
     height: 24px;

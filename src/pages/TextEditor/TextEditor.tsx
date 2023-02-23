@@ -5,12 +5,14 @@ import "./TextEditor.css";
 // Business
 import CommandInput from "business/CommandInput";
 import FormElementDraggable from "business/FormElementDraggable/FormElementDraggable";
+// Components
+import CustomDroppable from "components/CustomDroppable";
 // Contexts
 import CustomDragDropContext from "contexts/CustomDragDropContext";
 import { useFormContext } from "contexts/formContext";
 // React
 import React from "react";
-import { Droppable, DropResult } from "react-beautiful-dnd";
+import { DropResult } from "react-beautiful-dnd";
 // Services
 import CommandsRepository from "services/CommandsRepository";
 // Utils
@@ -58,25 +60,18 @@ const TextEditor: React.FC<TextEditorProps> = () => {
 		<div className="TextEditor">
 			<form className="form" onSubmit={handleSubmit}>
 				<CustomDragDropContext onDragEnd={handleDrop}>
-					<Droppable droppableId={"droppableId"}>
-						{(provided) => (
-							<div ref={provided.innerRef} {...provided.droppableProps}>
-								{formElements.map((element, index) => (
-									<FormElementDraggable
-										element={element}
-										index={index}
-										onCompleted={(formElement: FormElement) =>
-											onCompleted(formElement, handleFocusElement)
-										}
-										onRemove={(formElement: FormElement) =>
-											onRemove(formElement, handleFocusElement)
-										}
-									/>
-								))}
-								{provided.placeholder}
-							</div>
-						)}
-					</Droppable>
+					<CustomDroppable droppableId="formDroppable">
+						{formElements.map((element, index) => (
+							<FormElementDraggable
+								element={element}
+								index={index}
+								onCompleted={(formElement: FormElement) =>
+									onCompleted(formElement, handleFocusElement)
+								}
+								onRemove={(formElement: FormElement) => onRemove(formElement, handleFocusElement)}
+							/>
+						))}
+					</CustomDroppable>
 				</CustomDragDropContext>
 
 				<CommandInput
