@@ -65,6 +65,7 @@ const TextEditor: React.FC<TextEditorProps> = () => {
 							<FormElementDraggable
 								element={element}
 								index={index}
+								onBlur={(formElement: FormElement) => onCompleted(formElement)}
 								onCompleted={(formElement: FormElement) =>
 									onCompleted(formElement, handleFocusElement)
 								}

@@ -14,7 +14,7 @@ interface FormElementCreatorProps {
 	id: string;
 	type: CommandTypesValues;
 	onCompleted: (formElement: FormElement) => void;
-	onChange: (formElement: FormElement) => void;
+	onBlur: (formElement: FormElement) => void;
 	onRemove?: (formElement: FormElement) => void;
 	defaultValues?: string[];
 }
@@ -25,6 +25,7 @@ const FormElementCreator: React.FC<FormElementCreatorProps> = ({
 	id,
 	type,
 	onCompleted,
+	onBlur,
 	onRemove,
 	defaultValues,
 }) => {
@@ -43,6 +44,7 @@ const FormElementCreator: React.FC<FormElementCreatorProps> = ({
 						id={id}
 						ref={ref}
 						onCompleted={onCompleted}
+						onBlur={onBlur}
 						defaultValue={defaultValues?.[0] ?? ""}
 					/>
 				);
@@ -52,6 +54,7 @@ const FormElementCreator: React.FC<FormElementCreatorProps> = ({
 						id={id}
 						ref={ref}
 						onCompleted={onCompleted}
+						onBlur={onBlur}
 						onRemove={onRemove}
 						defaultValue={defaultValues?.[0] ?? ""}
 					/>
@@ -62,7 +65,7 @@ const FormElementCreator: React.FC<FormElementCreatorProps> = ({
 						id={id}
 						ref={ref}
 						onCompleted={onCompleted}
-						onChange={onCompleted}
+						onBlur={onBlur}
 						onRemove={onRemove}
 						defaultValues={
 							(defaultValues ?? []).length < OPTION_LENGHT ? new Array(3).fill("") : defaultValues
@@ -75,6 +78,7 @@ const FormElementCreator: React.FC<FormElementCreatorProps> = ({
 						id={id}
 						ref={ref}
 						onCompleted={onCompleted}
+						onBlur={onBlur}
 						onRemove={onRemove}
 						defaultValue={defaultValues?.[0] ?? ""}
 					/>

@@ -12,7 +12,7 @@ interface OptionCreatorProps {
 	id: string;
 	defaultValues?: string[];
 	onCompleted: (formElement: FormElement) => void;
-	onChange: (formElement: FormElement) => void;
+	onBlur: (formElement: FormElement) => void;
 	onRemove?: (formElement: FormElement) => void;
 }
 
@@ -24,7 +24,7 @@ interface Option {
 }
 
 const OptionCreator = React.forwardRef<HTMLInputElement, OptionCreatorProps>(
-	({ id, defaultValues = [], onCompleted, onChange, onRemove }, ref) => {
+	({ id, defaultValues = [], onCompleted, onBlur, onRemove }, ref) => {
 		const [options, setOptions] = React.useState<Option[]>(
 			defaultValues.map((value) => ({
 				defaultValue: value,
@@ -59,16 +59,13 @@ const OptionCreator = React.forwardRef<HTMLInputElement, OptionCreatorProps>(
 			}
 		};
 
-		const handleBlur = (position: number) => {
-			const isLast = position === options.length - 1;
-			if (isLast) {
-				const values = options.map((item: Option) => item.value);
-				onChange({
-					id,
-					type: CommandTypes.OPTION,
-					values,
-				});
-			}
+		const handleBlur = () => {
+			const values = options.map((item: Option) => item.value);
+			onBlur({
+				id,
+				type: CommandTypes.OPTION,
+				values,
+			});
 		};
 
 		const handlePressBackSpace = (event: EventCustomInput, option: Option, position: number) => {
@@ -119,7 +116,7 @@ const OptionCreator = React.forwardRef<HTMLInputElement, OptionCreatorProps>(
 						onPressEnter={(event) => handlePressEnter(event, item, index)}
 						onPressBackSpace={(event) => handlePressBackSpace(event, item, index)}
 						onChange={(event) => handleChange(event, item)}
-						onBlur={() => handleBlur(index)}
+						onBlur={() => handleBlur()}
 						autoFocus={index === 0}
 					/>
 				))}

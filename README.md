@@ -17,3 +17,16 @@ Add a functionality to import and export the created form in json format.
 
 ### Level 3:
 Make the individual form components drag and drop-able, so they can be reordered.
+
+## TESTS
+
+Added tests just for level 1. Those tests are run automatically on each commit on github.
+
+## CI
+
+Test & deploy.
+
+- Test:  That was implemented using a github action.
+- Deploy: Project connected to vercel.
+
+LINK: https://text-based-editor-juandahl.vercel.app/ 

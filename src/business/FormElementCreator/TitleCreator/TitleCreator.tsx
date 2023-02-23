@@ -11,15 +11,24 @@ interface TitleCreatorProps {
 	id: string;
 	defaultValue?: string;
 	onCompleted: (formElement: FormElement) => void;
+	onBlur: (formElement: FormElement) => void;
 }
 
 const TitleCreator = React.forwardRef<HTMLInputElement, TitleCreatorProps>(
-	({ id, defaultValue = "", onCompleted }, ref) => {
+	({ id, defaultValue = "", onCompleted, onBlur }, ref) => {
 		const handlePressEnter = (event: EventCustomInput) => {
 			const newValue = event.target.value;
 			onCompleted({
 				id,
-				type: CommandTypes.HEADLINE,
+				type: CommandTypes.TITLE,
+				values: [newValue],
+			});
+		};
+
+		const handleBlur = (newValue: string) => {
+			onBlur({
+				id,
+				type: CommandTypes.TITLE,
 				values: [newValue],
 			});
 		};
@@ -34,6 +43,7 @@ const TitleCreator = React.forwardRef<HTMLInputElement, TitleCreatorProps>(
 				aria-label="form-title"
 				defaultValue={defaultValue}
 				onPressEnter={handlePressEnter}
+				onBlur={(event, value) => handleBlur(value)}
 			/>
 		);
 	}
