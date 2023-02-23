@@ -15,6 +15,8 @@
       border: 0px;
       min-height: 40px;
       font-size: large; }
+    .TextEditor .form .commandInput {
+      margin-left: 40px; }
     .TextEditor .form .submit {
       background-color: black;
       color: white;
@@ -22,4 +24,5 @@
       min-height: 40px;
       font-weight: bold;
       border-radius: 8px;
-      max-width: 200px; }
+      max-width: 200px;
+      margin-left: 40px; }
