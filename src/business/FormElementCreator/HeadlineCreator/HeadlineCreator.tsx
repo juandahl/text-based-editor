@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 // Components
 import CustomInput from "components/CustomInput";
 import { EventCustomInput } from "components/CustomInput/CustomInput";
@@ -9,12 +10,13 @@ import React from "react";
 interface HeadlineCreatorProps {
 	id: string;
 	defaultValue?: string;
+	onBlur: (formElement: FormElement) => void;
 	onCompleted: (formElement: FormElement) => void;
 	onRemove?: (formElement: FormElement) => void;
 }
 
 const HeadlineCreator = React.forwardRef<HTMLInputElement, HeadlineCreatorProps>(
-	({ id, defaultValue = "", onCompleted, onRemove }, ref) => {
+	({ id, defaultValue = "", onCompleted, onBlur, onRemove }, ref) => {
 		const handlePressEnter = (event: EventCustomInput) => {
 			const newValue = event.target.value;
 			onCompleted({
@@ -35,6 +37,17 @@ const HeadlineCreator = React.forwardRef<HTMLInputElement, HeadlineCreatorProps>
 			}
 		};
 
+		const handleBlur = (
+			event: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+			value: string
+		) => {
+			onBlur({
+				id,
+				type: CommandTypes.HEADLINE,
+				values: [value],
+			});
+		};
+
 		return (
 			<CustomInput
 				ref={ref}
@@ -46,6 +59,7 @@ const HeadlineCreator = React.forwardRef<HTMLInputElement, HeadlineCreatorProps>
 				defaultValue={defaultValue}
 				onPressEnter={handlePressEnter}
 				onPressBackSpace={handlePressBackSpace}
+				onBlur={handleBlur}
 			/>
 		);
 	}

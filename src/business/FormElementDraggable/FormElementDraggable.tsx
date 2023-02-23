@@ -17,6 +17,7 @@ import React from "react";
 interface FormElementDraggableProps {
 	element: FormElement;
 	index: number;
+	onBlur: (formElement: FormElement) => void;
 	onCompleted: (formElement: FormElement) => void;
 	onRemove: (formElement: FormElement) => void;
 }
@@ -25,6 +26,7 @@ const FormElementDraggable: React.FC<FormElementDraggableProps> = ({
 	element,
 	index,
 	onCompleted,
+	onBlur,
 	onRemove,
 }) => {
 	// States
@@ -50,9 +52,9 @@ const FormElementDraggable: React.FC<FormElementDraggableProps> = ({
 					{...element}
 					key={element.id}
 					defaultValues={element.values}
-					onCompleted={() => onCompleted(element)}
-					onChange={() => onCompleted(element)}
-					onRemove={() => onRemove(element)}
+					onCompleted={(newElement: FormElement) => onCompleted(newElement)}
+					onBlur={(newElement: FormElement) => onBlur(newElement)}
+					onRemove={(newElement: FormElement) => onRemove(newElement)}
 				/>
 			</ul>
 		</CustomDraggable>

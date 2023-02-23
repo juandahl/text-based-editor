@@ -11,11 +11,12 @@ interface TextInputCreatorProps {
 	id: string;
 	defaultValue?: string;
 	onCompleted: (formElement: FormElement) => void;
+	onBlur: (formElement: FormElement) => void;
 	onRemove?: (formElement: FormElement) => void;
 }
 
 const TextInputCreator = React.forwardRef<HTMLInputElement, TextInputCreatorProps>(
-	({ id, defaultValue = "", onCompleted, onRemove }, ref) => {
+	({ id, defaultValue = "", onCompleted, onBlur, onRemove }, ref) => {
 		const handlePressEnter = (event: EventCustomInput) => {
 			const newValue = event.target.value;
 			onCompleted({
@@ -36,6 +37,17 @@ const TextInputCreator = React.forwardRef<HTMLInputElement, TextInputCreatorProp
 			}
 		};
 
+		const handleBlur = (
+			event: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+			value: string
+		) => {
+			onBlur({
+				id,
+				type: CommandTypes.TEXT_INPUT,
+				values: [value],
+			});
+		};
+
 		return (
 			<CustomInput
 				ref={ref}
@@ -47,6 +59,7 @@ const TextInputCreator = React.forwardRef<HTMLInputElement, TextInputCreatorProp
 				defaultValue={defaultValue}
 				onPressEnter={handlePressEnter}
 				onPressBackSpace={handlePressBackSpace}
+				onBlur={handleBlur}
 			/>
 		);
 	}
